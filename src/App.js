@@ -9,10 +9,15 @@ const HatsPage = () => (
 		<h1>HATS PAGE</h1>
 	</div>
 );
+
 function App() {
 	return (
 		<div>
-			<HomePage />
+			{/* exact artinya true atau false 
+		kalau true maka harus persis di path nya 
+		contoh - kalau pakai exact - halaman sebelumnya seprti hoempage tidak akan di render */}
+			<Route path='/' component={HomePage} />
+			<Route path='/hats' component={HatsPage} />
 		</div>
 	);
 }

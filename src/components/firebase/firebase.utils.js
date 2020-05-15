@@ -13,10 +13,10 @@ const config = {
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
-	// apabila tidak ada atutentikasi .. exit
+	// apabila tidak ada atutentikasi/ tidak ada yang login .. exit
 	if (!userAuth) return;
 
-	// apabila ada
+	// apabila ada yg login - query task to firebase
 	const userRef = firestore.doc(`user/${userAuth.uid}`);
 
 	const snapShot = await userRef.get();
@@ -25,6 +25,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 		const {displayName, email} = userAuth;
 		const createdAt = new Date();
 
+		// create to firestore , if snapshot doesnt exist
 		try {
 			await userRef.set({
 				displayName,
@@ -39,11 +40,14 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 	return userRef;
 };
 
+// inisialisasai konfigurasi firebase
 firebase.initializeApp(config);
 
+// konfiurasi google code -firebase
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
+// utility
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({promt: 'select_account'});
 export const signInWithGoogle = () => auth.signInWithPopup(provider);

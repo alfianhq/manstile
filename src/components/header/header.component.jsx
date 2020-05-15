@@ -17,6 +17,7 @@ const Header = ({currentUser}) => (
 			<Link className='option' to='/contact'>
 				CONTACT
 			</Link>
+			{/* menu otomatis signin and signout */}
 			{currentUser ? (
 				<div className='option' onClick={() => auth.signOut()}>
 					SIGN OUT

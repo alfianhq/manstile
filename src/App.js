@@ -21,12 +21,16 @@ class App extends React.Component {
 		};
 	}
 
+	// pastikan unsubrice defaultnya
 	unsubscribeFromAuth = null;
 	componentDidMount() {
+		// listening to google -// user login
 		this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+			// ambil data yang ada di fire store dan masukan ke state
 			if (userAuth) {
 				const userRef = await createUserProfileDocument(userAuth);
 
+				// set state
 				userRef.onSnapshot(snapShot => {
 					this.setState({
 						currentUser: {
@@ -44,11 +48,13 @@ class App extends React.Component {
 	}
 
 	componentWillUnmount() {
+		// unsubscribe ketika unmount / default react lifacycle
 		this.unsubscribeFromAuth();
 	}
 	render() {
 		return (
 			<div>
+				{/* cek apakah user sudah login atau belum */}
 				<Header currentUser={this.state.currentUser} />
 				<Switch>
 					<Route exact path='/' component={HomePage} />

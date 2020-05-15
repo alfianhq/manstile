@@ -29,6 +29,7 @@ class SignUp extends React.Component {
 			return;
 		}
 
+		// kirim ke google buat akun
 		try {
 			const {user} = await auth.createUserWithEmailAndPassword(email, password);
 
